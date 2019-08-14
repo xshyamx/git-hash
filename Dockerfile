@@ -7,6 +7,11 @@ WORKDIR /go/src/github.com/xshyamx/git-hash
 COPY . .
 
 RUN GIT_COMMIT=$(git rev-list -1 HEAD --abbrev-commit) && \
-   go build -ldflags "-X main.GitCommit=$GIT_COMMIT"
+   GOOS=linux GOARCH=amd64 go build -ldflags "-w -s -X main.GitCommit=$GIT_COMMIT"
 
-CMD "./git-hash"
+FROM scratch
+
+COPY --from=builder /go/src/github.com/xshyamx/git-hash/git-hash /git-hash
+
+ENTRYPOINT [ "/git-hash" ]
+
