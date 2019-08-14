@@ -1,7 +1,5 @@
 FROM golang:1.7.5 as builder
 
-WORKDIR /go/src/
-
 WORKDIR /go/src/github.com/xshyamx/git-hash
 
 COPY . .
