@@ -2,6 +2,12 @@
 
 Embed git hash in golang
 
+## Build & Run
+
+```sh
+docker build -t git-hash . && docker run --rm git-hash
+```
+
 ## References
 
 * [Inject build-time variables with Golang][golang-git]
