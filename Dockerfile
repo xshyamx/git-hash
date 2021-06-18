@@ -1,11 +1,14 @@
-FROM golang:1.7.5 as builder
+FROM golang:1.16.4 as builder
+
+ARG GIT_VERSION
 
 WORKDIR /go/src/github.com/xshyamx/git-hash
 
-COPY . .
+ADD *.go .
 
-RUN GIT_COMMIT=$(git rev-list -1 HEAD --abbrev-commit) && \
-   GOOS=linux GOARCH=amd64 go build -ldflags "-w -s -X main.GitCommit=$GIT_COMMIT"
+ADD go.* .
+
+RUN GOOS=linux GOARCH=amd64 go build -ldflags "-w -s -X main.GitCommit=$GIT_VERSION"
 
 FROM scratch
 

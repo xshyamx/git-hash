@@ -5,7 +5,10 @@ Embed git hash in golang
 ## Build & Run
 
 ```sh
-docker build -t git-hash . && docker run --rm git-hash
+docker build \
+    --build-arg GIT_VERSION=$(git rev-parse --short HEAD) \
+	-t xshyamx/git-hash . \
+	&& docker run --rm xshyamx/git-hash
 ```
 
 ## References
